@@ -3,15 +3,33 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>WorkSessions</title>
-    <link href="http://localhost:8090/home/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://10.0.1.253:8090/home/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
     <div class="row">
         <div class="container" style="margin: 10px; width: 250px">
+
             <form action="/sessions" method="POST" class="form-sessions" role="form">
                 <div class="form-group">
-                    <input type="text" name="sessionLogin" class="form-control" placeholder="sessionLogin">
+                    <select size="1" name="period" class="form-control">
+                        <option disabled>Период</option>
+                        <#list periods as period>
+                            <#if period.default == 1>
+                                <option selected value=${period.year?c}${period.month?string["00"]}>${period.year?c}-${period.month?string["00"]}</option>
+                            </#if>
+                            <#if period.default == 0>
+                                <option value=${period.year?c}${period.month?string["00"]}>${period.year?c}-${period.month?string["00"]}</option>
+                            </#if>
+                        </#list>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <#if sessionLogin??>
+                        <input type="text" value="${sessionLogin}" name="sessionLogin" class="form-control" placeholder="sessionLogin">
+                    <#else>
+                        <input type="text" name="sessionLogin" class="form-control" placeholder="sessionLogin">
+                    </#if>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="ok" class="btn btn-sm btn-primary btn-block">
@@ -26,16 +44,18 @@
                 <div class="col-sm-4">Сессии абонента</div>
                 <tr>
                     <th>id Сессии</th>
+                    <th>Период</th>
                     <th>Логин</th>
                     <th>Статус</th>
                     <th>Убить сессию</th>
                 </tr>
                 <#list sessions as session>
                    <tr>
-                       <td>${session.id}</td>
+                       <td>${session.id?c}</td>
+                       <td>${session.period}</td>
                        <td>${session.login}</td>
                        <td>${session.status}</td>
-                       <td><a href="http://localhost:8090/kill_session?sessionId=${session.id}">kill</a> </td>
+                       <td><a href="http://10.0.1.253:8090/kill_session?sessionId=${session.id?c}&period=${session.period}">kill</a> </td>
                    </tr>
                 </#list>
             </table>

@@ -33,7 +33,6 @@ public class Main {
         context.addServlet(holderHome,"/home/*");
 
         Server server = new Server(8090);
-
         server.setHandler(context);
 
         server.start();

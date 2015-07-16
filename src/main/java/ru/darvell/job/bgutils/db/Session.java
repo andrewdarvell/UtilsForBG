@@ -4,11 +4,21 @@ public class Session {
     int id;
     String login;
     int status;
+    String period;
 
-    public Session(int id, String login, int status) {
+    public Session(int id, String login, int status, String period) {
         this.id = id;
         this.login = login;
         this.status = status;
+        this.period = period;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
     }
 
     public int getId() {

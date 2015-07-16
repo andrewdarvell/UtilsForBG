@@ -31,10 +31,10 @@ public class DataBase {
         return connection;
     }
 
-    public ArrayList<Session> getSessions(String login){
+    public ArrayList<Session> getSessions(String login, String period){
 
         String sql ="SELECT * \n" +
-                    "FROM log_session_8_201507 \n" +
+                    "FROM log_session_8_"+period+" \n" +
                     "WHERE login_name = ? \n" +
                     "AND status = 0";
         Connection conn = connectToDB();
@@ -47,7 +47,8 @@ public class DataBase {
                 while (rs.next()){
                     Session session = new Session(rs.getInt("id"),
                                                 rs.getString("login_name"),
-                                                rs.getInt("status"));
+                                                rs.getInt("status"),
+                                                period);
                     result.add(session);
                 }
                 rs.close();
@@ -60,8 +61,8 @@ public class DataBase {
         return result;
     }
 
-    public void killSession(int id){
-        String sql = "UPDATE log_session_8_201507 \n" +
+    public void killSession(int id, String period){
+        String sql = "UPDATE log_session_8_"+period+" \n" +
                      "SET status = 1 \n" +
                      "WHERE id = ?";
         Connection conn = connectToDB();

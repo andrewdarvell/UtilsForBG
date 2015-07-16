@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
                 Cookie cookie = new Cookie("sessionKey", sessionKey);
                 resp.addCookie(cookie);
                 resp.sendRedirect(ServerUrls.adminUrl);
+                return;
             }else{
                 resp.setContentType("text/html;charset=utf-8");
                 resp.getWriter().println("ВОН!!!");

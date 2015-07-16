@@ -29,8 +29,9 @@ public class SessionKiller extends HttpServlet {
             int role = securer.testSessionKey(sessionKey);
             if (role == 1){
                 String idStr = req.getParameter("sessionId");
+                String period = req.getParameter("period");
                 int id = Integer.valueOf(idStr);
-                new DataBase().killSession(id);
+                new DataBase().killSession(id, period);
                 System.out.println(id);
             }
         }else{
